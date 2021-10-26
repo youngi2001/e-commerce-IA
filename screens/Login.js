@@ -11,7 +11,6 @@ export default function Login({ navigation }) {
   const [increaseNum, setIncreaseNum] = useState(0);
 
   const onButtonClick = () => {
-    setName("Asamoah");
     navigation.navigate("Home");
   };
 
