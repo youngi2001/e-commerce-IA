@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Image,
 } from "react-native";
 import AppLoading from "expo-app-loading";
 import { EvilIcons } from "@expo/vector-icons";
@@ -16,18 +17,78 @@ import { useState } from "react";
 
 const Home = ({ navigation }) => {
   const [foodStuff, setFoodStuff] = useState([
-    { key: "1", name: "Yam",price:"$200", image: require("../assets/images/yam.png") },
-    { key: "2", name: "Tomatoes", price:"$300", image: require("../assets/images/yam.png") },
-    { key: "3", name: "Pepper", price:"$1099", image: require("../assets/images/yam.png") },
-    { key: "4", name: "Ginger", price:"$2000", image: require("../assets/images/yam.png") },
-    { key: "5", name: "Yam-pona", price:"$200", image: require("../assets/images/yam.png") },
-    { key: "6", name: "Onion", price:"$230", image: require("../assets/images/yam.png") },
-    { key: "7", name: "Rice",  price:"$29", image: require("../assets/images/yam.png") },
-    { key: "89", name: "Meat", price:"$190", image: require("../assets/images/yam.png") },
-    { key: "8", name: "kooko", price:"$99", image: require("../assets/images/yam.png") },
-    { key: "9", name: "koo45",  price:"$200", image: require("../assets/images/yam.png") },
-    { key: "10", name: "kooko 34", price:"$200", image: require("../assets/images/yam.png") },
-    { key: "77", name: "Rice", price:"$45", image: require("../assets/images/yam.png") },
+    {
+      key: "1",
+      name: "Yam",
+      price: "$200",
+      image: require("../assets/images/yam.png"),
+    },
+    {
+      key: "2",
+      name: "Tomatoes",
+      price: "$300",
+      image: require("../assets/images/tomatoes.jpeg"),
+    },
+    {
+      key: "3",
+      name: "Pepper",
+      price: "$1099",
+      image: require("../assets/images/pepper.png"),
+    },
+    {
+      key: "4",
+      name: "Ginger",
+      price: "$2000",
+      image: require("../assets/images/ginger.jpeg"),
+    },
+    {
+      key: "5",
+      name: "Plantain",
+      price: "$200",
+      image: require("../assets/images/plantain.jpeg"),
+    },
+    {
+      key: "6",
+      name: "Onion",
+      price: "$230",
+      image: require("../assets/images/onion.jpeg"),
+    },
+    {
+      key: "7",
+      name: "Rice",
+      price: "$29",
+      image: require("../assets/images/rice.png"),
+    },
+    {
+      key: "89",
+      name: "Meat",
+      price: "$190",
+      image: require("../assets/images/meat.jpeg"),
+    },
+    {
+      key: "8",
+      name: "Okra",
+      price: "$99",
+      image: require("../assets/images/okra.jpeg"),
+    },
+    {
+      key: "9",
+      name: "Frytol Oil",
+      price: "$200",
+      image: require("../assets/images/oil.jpeg"),
+    },
+    {
+      key: "10",
+      name: "Palm Oil",
+      price: "$200",
+      image: require("../assets/images/palm_oil.jpeg"),
+    },
+    {
+      key: "77",
+      name: "Pawpaw",
+      price: "$45",
+      image: require("../assets/images/pawpaw.jpeg"),
+    },
   ]);
 
   const onButtonClick = () => {
@@ -50,22 +111,36 @@ const Home = ({ navigation }) => {
           justifyContent: "space-between",
           height: 250,
           width: 155,
-          flex:1,
-          margin:10,
-          
+          flex: 1,
+          margin: 10,
         }}
+        activeOpacity={0.8}
       >
-        
-        <View style={{ flex: 1, justifyContent:"flex-end" , backgroundColor:"white", borderRadius: 22,}}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            backgroundColor: "white",
+            borderRadius: 22,
+          }}
+        >
+          <Image
+            source={item.image}
+            style={{
+              marginLeft: 5,
+              width: 150,
+              height: 150,
+              resizeMode: "contain",
+            }}
+          />
+          <View style={{ alignContent: "center" }}>
             <Text style={styles.flatViewText}>{item.name}</Text>
             <Text style={styles.flatViewPrice}>{item.price}</Text>
+          </View>
         </View>
-        
       </TouchableOpacity>
     );
   }
-
-
 
   if (!fontLoaded) {
     return <AppLoading />;
@@ -74,7 +149,7 @@ const Home = ({ navigation }) => {
       <View
         style={{
           flex: 1,
-          backgroundColor: "#dbc995",
+          backgroundColor: "#ffebd4",
           marginTop: 40,
         }}
       >
@@ -154,13 +229,23 @@ const Home = ({ navigation }) => {
           </ScrollView>
         </View>
 
-        <Text style={{ color: "red", fontSize: 29, fontFamily: "Inter_Thin" }}>
-          This is the Home Page
+        <Text
+          style={{
+            color: "#2b1902",
+            fontWeight: "bold",
+            fontSize: 20,
+            fontFamily: "Inter_Thin",
+            marginLeft: 20,
+            marginTop: 20,
+          }}
+        >
+          All Foodstuff Available
         </Text>
 
         {/* list of food staffs */}
-        <View style={{ marginTop: 15 , height:"67%"}}>
+        <View style={{ marginTop: 15, height: "67%", borderTopLeftRadius: 10 }}>
           <FlatList
+            showsVerticalScrollIndicator={false}
             numColumns={2}
             data={foodStuff}
             keyExtractor={(item, index) => index.toString()}
@@ -174,9 +259,9 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   categories: {
-    marginHorizontal: 10,
+    marginHorizontal: 20,
     marginTop: 15,
-    backgroundColor: "#241e0d",
+    backgroundColor: "#4d2e09",
     borderRadius: 15,
     padding: 5,
     paddingHorizontal: 10,
@@ -202,20 +287,19 @@ const styles = StyleSheet.create({
   },
 
   flatViewText: {
-    fontSize: 15,
-    margin: 5,
-    alignContent:"center",
-    justifyContent:"center",
+    marginLeft: 15,
+    fontSize: 19,
+    alignContent: "center",
+    justifyContent: "center",
   },
   flatViewPrice: {
     fontSize: 25,
-    margin: 5,
-    color:"gold",
-    alignContent:"center",
-    justifyContent:"center",
+    marginLeft: 15,
+    marginBottom: 5,
+    color: "orange",
+    alignContent: "center",
+    justifyContent: "center",
   },
-
-  
 });
 
 export default Home;
