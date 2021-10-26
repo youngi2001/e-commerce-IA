@@ -2,30 +2,24 @@ import React from "react";
 import { View, Text, Button, Image } from "react-native";
 import { useState } from "react";
 import { useFonts } from "expo-font";
-import yam from "../assets/yam.png";
+import yam from "../assets/images/yam.png";
+import Home from "./Home";
 
-export default function Login({ navigation }) {
-  const [name, setName] = useState();
-
-  const [num, setNum] = useState(0);
-  const [increaseNum, setIncreaseNum] = useState(0);
+const Login = ({ navigation }) => {
 
   const onButtonClick = () => {
     navigation.navigate("Home");
   };
 
-  const onAddClick = () => {
-    setIncreaseNum(increaseNum + 5);
-    setNum(num + 1);
-  };
+  
 
   return (
-    <View style={{ flex: 1, marginTop: 45, backgroundColor: "#dbc995" }}>
+    <View style={{ flex: 1, backgroundColor: "#dbc995",  }}>
       <View
         style={{
           alignItems: "center",
           justifyContent: "center",
-          marginTop: 200,
+          marginTop: 0,
         }}
       >
         <Text
@@ -35,23 +29,33 @@ export default function Login({ navigation }) {
             color: "#9e7911",
           }}
         >
-          GraberK Online 
+          GraberK Online
         </Text>
-        <Text style={{
+        <Text
+          style={{
             fontSize: 40,
             fontFamily: "monospace",
             color: "#9e7911",
-          }}>
-            Shop
+          }}
+        >
+          Shop
         </Text>
         <Image
           source={yam}
-          style={{ width: 300, height: 250, resizeMode: "stretch" , borderRadius:20, marginTop:70}}
+          style={{
+            width: 300,
+            height: 250,
+            resizeMode: "stretch",
+            borderRadius: 20,
+            marginTop: 70,
+          }}
         />
       </View>
-      <View style={{ marginTop: 50, }}>
-        <Button title="Start Shopping Now" onPress={onButtonClick}  ></Button>
+      <View style={{ marginTop: 30 }}>
+        <Button title="Start Shopping Now" onPress={onButtonClick}></Button>
       </View>
     </View>
   );
-}
+};
+
+export default Login;
