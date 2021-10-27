@@ -13,7 +13,7 @@ import Cart from './screens/Cart';
 export default function App() {
 
   const MainNavigation = createStackNavigator();
-
+  
 
   return (
     

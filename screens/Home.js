@@ -16,6 +16,8 @@ import { useFonts } from "expo-font";
 import { useState } from "react";
 
 const Home = ({ navigation }) => {
+
+  //User Details
   const [foodStuff, setFoodStuff] = useState([
     {
       key: "1",
@@ -91,9 +93,7 @@ const Home = ({ navigation }) => {
     },
   ]);
 
-  const onButtonClick = () => {
-    navigation.navigate("Cart");
-  };
+  
 
   let [fontLoaded] = useFonts({
     Inter_700Bold: require("../assets/fonts/Inter-ExtraBold.ttf"),
