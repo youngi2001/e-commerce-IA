@@ -1,23 +1,56 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Home from "./Home";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { auth } from "../firebase";
+import {emptyUserDetails} from '../screens/signup';
 
+const Account = ({ navigation }) => {
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login");
+        
+      })
+      .catch((error) => alert(error.message));
+  };
 
-const Cart = () =>{
-    return(
-        <View style={{
-            flex: 1,
-            backgroundColor: "#dbc985",
-            marginTop:40,
-          }}>
-            <Text>This is the Cart Page</Text>
-        </View>
-    );
-}
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#dbc985",
+        marginTop: 40,
+      }}
+    >
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontSize: 30 }}>Account Details</Text>
+        <Text style={{ fontSize: 30 }}></Text>
+      </View>
 
-export default Cart;
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "brown",
+            height: 120,
+            width: 200,
+            borderRadius: 30,
+          }}
+          onPress={signOut}
+        >
+          <Text style={{ fontSize: 50, padding: 10, color: "orange" }}>
+            LogOut
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
 
-{/* <View style={{ marginTop: 10 }}>
+export default Account;
+
+{
+  /* <View style={{ marginTop: 10 }}>
           <ScrollView>
             <View
               style={{
@@ -56,4 +89,5 @@ export default Cart;
               </View>;
             }}
           />
-        </View> */}
+        </View> */
+}

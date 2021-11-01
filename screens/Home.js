@@ -14,6 +14,9 @@ import { AntDesign } from "@expo/vector-icons";
 import { ScrollView, FlatList, TextInput } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import { useState } from "react";
+import itemScreen from "./itemScreen";
+import { render } from "react-dom";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Home = ({ navigation }) => {
 
@@ -102,6 +105,8 @@ const Home = ({ navigation }) => {
     AbrilFatface_Regular: require("../assets/fonts/AbrilFatface-Regular.ttf"),
   });
 
+  const [selectedItem, addSelectedItems] = useState({})
+
   //render all the items available
   function renderFoodStuff(item, index) {
     return (
@@ -181,14 +186,14 @@ const Home = ({ navigation }) => {
                 Food Delivery
               </Text>
             </View>
-
+            
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Cart");
+                navigation.navigate("Account");
               }}
               style={{ margin: 15 }}
             >
-              <EvilIcons name="cart" size={50} color="#bd9017" />
+              <MaterialCommunityIcons name="account-circle-outline" size={40} color="#bd9017" />
             </TouchableOpacity>
           </View>
         </View>
@@ -204,7 +209,7 @@ const Home = ({ navigation }) => {
             style={{ fontSize: 21, width: 300 }}
           />
         </View>
-
+            {/* the view for the food items categories */}
         <View>
           <ScrollView
             horizontal={true}
