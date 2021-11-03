@@ -7,6 +7,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Image,
+  Modal,
 } from "react-native";
 import AppLoading from "expo-app-loading";
 import { EvilIcons } from "@expo/vector-icons";
@@ -15,88 +16,144 @@ import { ScrollView, FlatList, TextInput } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import { useState } from "react";
 import itemScreen from "./itemScreen";
-import { render } from "react-dom";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { BlurView } from "expo-blur";
+
+// Imported Icons
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 const Home = ({ navigation }) => {
-
-  //User Details
-  const [foodStuff, setFoodStuff] = useState([
+  //Shoes available for sale
+  const [shoes, setShoes] = useState([
     {
       key: "1",
-      name: "Yam",
+      name: "Converse All star Hi top Sneakers",
       price: "$200",
-      image: require("../assets/images/yam.png"),
+      color: "green",
+      size: [35, 36, 37, 38, 39, 40, 41],
+      image: require("../assets/images/Converse-All-sneakers.png"),
     },
     {
       key: "2",
-      name: "Tomatoes",
-      price: "$300",
-      image: require("../assets/images/tomatoes.jpeg"),
+      name: "Fila - Disruptor Sneakers",
+      price: "$153.00",
+      color: "white",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Fila-Disruptor-Sneakers.png"),
     },
     {
       key: "3",
-      name: "Pepper",
+      name: "Converse Chuck Taylor All Star",
       price: "$1099",
-      image: require("../assets/images/pepper.png"),
+      color: "red",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Converse-Chuck-Taylor-All-Star.png"),
     },
     {
       key: "4",
-      name: "Ginger",
+      name: "Converse Chuck Taylor Hi Sneakers",
       price: "$2000",
-      image: require("../assets/images/ginger.jpeg"),
+      color: "purple",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Converse-Chuck-Taylor-Hi-Sneakers.png"),
     },
     {
       key: "5",
-      name: "Plantain",
+      name: "Fila Ray Tracer Sneaker",
       price: "$200",
-      image: require("../assets/images/plantain.jpeg"),
+      color: "white",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Fila-Ray-Tracer-Sneaker.png"),
     },
     {
       key: "6",
-      name: "Onion",
+      name: "Nike - Air Zoom Sneaker",
       price: "$230",
-      image: require("../assets/images/onion.jpeg"),
+      color: "grey",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Nike-Air-Zoom-Sneaker.png"),
     },
     {
       key: "7",
-      name: "Rice",
+      name: "Nike - SB Dunk Low Sneakers",
       price: "$29",
-      image: require("../assets/images/rice.png"),
+      color: "white",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/nike-SB-Dunk-Low-sneakers.png"),
     },
     {
       key: "89",
-      name: "Meat",
+      name: "Nike Air Jordan X",
       price: "$190",
-      image: require("../assets/images/meat.jpeg"),
+      color: "violet",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Nike-Air-Jordan-X.png"),
     },
     {
       key: "8",
-      name: "Okra",
+      name: "Nike Jordan -Air 1",
       price: "$99",
-      image: require("../assets/images/okra.jpeg"),
+      color: "red",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Nike-Jordan-Air-1.png"),
     },
     {
       key: "9",
-      name: "Frytol Oil",
+      name: "Nike Roshe One Sneakers",
       price: "$200",
-      image: require("../assets/images/oil.jpeg"),
+      color: "black",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Nike-Roshe-One-Sneakers.png"),
     },
     {
       key: "10",
-      name: "Palm Oil",
+      name: "Nike Shox Go-Women",
       price: "$200",
-      image: require("../assets/images/palm_oil.jpeg"),
+      color: "blue",
+      size: [36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Nike-Shox-Go-Women.png"),
     },
     {
       key: "77",
-      name: "Pawpaw",
+      name: "Nike Zoom Sneakers",
       price: "$45",
-      image: require("../assets/images/pawpaw.jpeg"),
+      color: "black",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45, 46],
+      image: require("../assets/images/Nike-Zoom-Sneakers.png"),
+    },
+    {
+      key: "77",
+      name: "Reebok Classic Sneaker",
+      price: "$405",
+      color: "green",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Reebok-Classic-Sneaker.png"),
+    },
+    {
+      key: "77",
+      name: "Reebok Club C-mid Sneaker",
+      price: "$150",
+      color: "white",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Reebok-Club-C-mid-Sneaker.png"),
+    },
+    {
+      key: "77",
+      name: "Reebok Club Sneaker",
+      price: "$401",
+      color: "white",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Reebok-Club-Sneaker.png"),
+    },
+    {
+      key: "77",
+      name: "Reebok X-Maison",
+      price: "$235",
+      color: "blue",
+      size: [35, 36, 37, 38, 39, 40, 41, 42, 43, 45],
+      image: require("../assets/images/Reebok-X-Maison.png"),
     },
   ]);
-
-  
 
   let [fontLoaded] = useFonts({
     Inter_700Bold: require("../assets/fonts/Inter-ExtraBold.ttf"),
@@ -105,12 +162,18 @@ const Home = ({ navigation }) => {
     AbrilFatface_Regular: require("../assets/fonts/AbrilFatface-Regular.ttf"),
   });
 
-  const [selectedItem, addSelectedItems] = useState({})
+  const [showModalView, setAddToModalView] = useState(false);
+  const [selectedItems, setSelectedItems] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   //render all the items available
-  function renderFoodStuff(item, index) {
+  function renderShoesAvailable(item, index) {
     return (
       <TouchableOpacity
+        onPress={() => {
+          setSelectedItems(item);
+          setAddToModalView(true);
+        }}
         style={{
           marginHorizontal: 15,
           justifyContent: "space-between",
@@ -147,6 +210,18 @@ const Home = ({ navigation }) => {
     );
   }
 
+  function renderShoeSize() {
+    return (
+      selectedItems.size.map((item, index)=>{
+        return(
+          <TouchableOpacity>
+            {item}
+          </TouchableOpacity>
+        )
+      })
+    );
+  }
+
   if (!fontLoaded) {
     return <AppLoading />;
   } else {
@@ -166,7 +241,7 @@ const Home = ({ navigation }) => {
               marginHorizontal: 5,
             }}
           >
-            <View>
+            {/* <View>
               <Text
                 style={{
                   fontSize: 30,
@@ -185,15 +260,27 @@ const Home = ({ navigation }) => {
               >
                 Food Delivery
               </Text>
-            </View>
-            
+            </View> */}
+
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Account");
               }}
               style={{ margin: 15 }}
             >
-              <MaterialCommunityIcons name="account-circle-outline" size={40} color="#bd9017" />
+              <MaterialCommunityIcons
+                name="account-circle-outline"
+                size={40}
+                color="#bd9017"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Cart");
+              }}
+              style={{ margin: 15 }}
+            >
+              <Entypo name="shopping-cart" size={39} color="black" />
             </TouchableOpacity>
           </View>
         </View>
@@ -209,31 +296,7 @@ const Home = ({ navigation }) => {
             style={{ fontSize: 21, width: 300 }}
           />
         </View>
-            {/* the view for the food items categories */}
-        <View>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            style={{}}
-          >
-            <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Vegetables</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Yam</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Plantain</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Fruits</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
-
+        {/* the view for the food items categories */}
         <Text
           style={{
             color: "#2b1902",
@@ -244,19 +307,152 @@ const Home = ({ navigation }) => {
             marginTop: 20,
           }}
         >
-          All Foodstuff Available
+          Popular Categories
         </Text>
+        <View>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={{}}
+          >
+            <TouchableOpacity style={styles.categories}>
+              <Text style={styles.categoriesText}>Adidas</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.categories}>
+              <Text style={styles.categoriesText}>Nike</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.categories}>
+              <Text style={styles.categoriesText}>Rebook</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.categories}>
+              <Text style={styles.categoriesText}>Jordan</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
 
         {/* list of food staffs */}
         <View style={{ marginTop: 15, height: "67%", borderTopLeftRadius: 10 }}>
           <FlatList
             showsVerticalScrollIndicator={false}
             numColumns={2}
-            data={foodStuff}
+            data={shoes}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => renderFoodStuff(item, index)}
+            renderItem={({ item, index }) => renderShoesAvailable(item, index)}
           />
         </View>
+
+        {/*Modal View */}
+        {selectedItems && (
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={showModalView}
+          >
+            <BlurView
+              style={{
+                flex: 1,
+                alignItems: "center",
+              }}
+              intensity={143}
+              tint="light"
+            >
+              {/* to close the modal view */}
+              <TouchableOpacity
+                style={styles.absolute}
+                onPress={() => {
+                  setAddToModalView(false);
+                  setSelectedItems(null);
+                  setSelectedSize("");
+                }}
+              ></TouchableOpacity>
+
+              {/* Items that appear on the modal view */}
+              <View style={{ justifyContent: "center", width: "85%" }}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 25, textAlign: "center" }}>
+                    Shoes with
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 25,
+                      textAlign: "center",
+                      marginBottom: "45%",
+                    }}
+                  >
+                    Free Shipping
+                  </Text>
+                  <Text style={{ fontSize: 25, fontFamily: "Inter_700Bold" }}>
+                    {selectedItems.name}
+                  </Text>
+                </View>
+                {/* Image of selected item */}
+                <View style={{}}>
+                  <Image
+                    source={selectedItems.image}
+                    style={{ width: 300, height: 300, resizeMode: "contain" }}
+                  />
+                </View>
+
+                {/* Small details about item selected */}
+                <View style={{}}>
+                  <Text style={{ marginHorizontal: 30 }}>Choose Size</Text>
+                  <TouchableOpacity>{}</TouchableOpacity>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginTop: "45%",
+                      justifyContent: "space-between",
+                      // backgroundColor: "green",
+                    }}
+                  >
+                    <View style={{ alignContent: "center" }}>
+                      <Text style={{ fontSize: 45, marginRight: "18%" }}>
+                        {selectedItems.price}
+                      </Text>
+                    </View>
+
+                    <View>
+                      <TouchableOpacity
+                        style={{
+                          backgroundColor: "orange",
+                          borderRadius: 10,
+                          width: "100%",
+                          height: "40%",
+                          alignContent: "center",
+                          justifyContent: "center",
+                        }}
+                        onPress={() => {
+                          setSelectedItems(null);
+                          setAddToModalView(false);
+                          setSelectedSize("");
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: 30,
+                            // paddingHorizontal: 15,
+                            // paddingVertical: 15,
+                            marginLeft: "10%",
+                          }}
+                        >
+                          Add to Cart
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </BlurView>
+          </Modal>
+        )}
       </View>
     );
   }
@@ -304,6 +500,13 @@ const styles = StyleSheet.create({
     color: "orange",
     alignContent: "center",
     justifyContent: "center",
+  },
+  absolute: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
 });
 
