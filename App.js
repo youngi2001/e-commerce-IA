@@ -15,6 +15,7 @@ import Home from './screens/Home';
 import Account from './screens/Account';
 import itemScreen from './screens/itemScreen';
 import signup from './screens/signup';
+import Cart from './screens/Cart';
 
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
           <MainNavigation.Screen name="Account" component={Account} />
           <MainNavigation.Screen name="itemScreen" component={itemScreen} />
           <MainNavigation.Screen name="signup" component={signup} />
+          <MainNavigation.Screen name="Cart" component={Cart} />
 
         </MainNavigation.Navigator>
 
