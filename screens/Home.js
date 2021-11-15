@@ -15,146 +15,17 @@ import { AntDesign } from "@expo/vector-icons";
 import { ScrollView, FlatList, TextInput } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import { useState } from "react";
-import itemScreen from "./itemScreen";
 import { BlurView } from "expo-blur";
+
 
 // Imported Icons
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import shoesAvailable from "../storeItems/data";
+import allItemsInCart from "../storeItems/cartItems";
+
 
 const Home = ({ navigation }) => {
-  //Shoes available for sale
-  const [shoes, setShoes] = useState([
-    {
-      key: "1",
-      name: "Converse All star Hi top Sneakers",
-      price: "$200",
-      color: "green",
-      size: [35, 36, 38, 39, 40, 41],
-      image: require("../assets/images/Converse-All-sneakers.png"),
-    },
-    {
-      key: "2",
-      name: "Fila - Disruptor Sneakers",
-      price: "$153.00",
-      color: "white",
-      size: [35, 38, 39, 41, 42, 45],
-      image: require("../assets/images/Fila-Disruptor-Sneakers.png"),
-    },
-    {
-      key: "3",
-      name: "Converse Chuck Taylor All Star",
-      price: "$1099",
-      color: "red",
-      size: [35, 36, 37, 38, 39, 40],
-      image: require("../assets/images/Converse-Chuck-Taylor-All-Star.png"),
-    },
-    {
-      key: "4",
-      name: "Converse Chuck Taylor Hi Sneakers",
-      price: "$2000",
-      color: "purple",
-      size: [35, 36, 37, 38, 43, 45],
-      image: require("../assets/images/Converse-Chuck-Taylor-Hi-Sneakers.png"),
-    },
-    {
-      key: "5",
-      name: "Fila Ray Tracer Sneaker",
-      price: "$200",
-      color: "white",
-      size: [35, 36, 37, 38, 40, 41],
-      image: require("../assets/images/Fila-Ray-Tracer-Sneaker.png"),
-    },
-    {
-      key: "6",
-      name: "Nike - Air Zoom Sneaker",
-      price: "$230",
-      color: "grey",
-      size: [35, 36, 37, 42, 43, 45],
-      image: require("../assets/images/Nike-Air-Zoom-Sneaker.png"),
-    },
-    {
-      key: "7",
-      name: "Nike - SB Dunk Low Sneakers",
-      price: "$29",
-      color: "white",
-      size: [36, 38, 39, 40, 43, 45],
-      image: require("../assets/images/nike-SB-Dunk-Low-sneakers.png"),
-    },
-    {
-      key: "89",
-      name: "Nike Air Jordan X",
-      price: "$190",
-      color: "violet",
-      size: [35, 36, 38, 40, 42, 45],
-      image: require("../assets/images/Nike-Air-Jordan-X.png"),
-    },
-    {
-      key: "8",
-      name: "Nike Jordan -Air 1",
-      price: "$99",
-      color: "red",
-      size: [35, 37, 39, 40, 42, 45],
-      image: require("../assets/images/Nike-Jordan-Air-1.png"),
-    },
-    {
-      key: "9",
-      name: "Nike Roshe One Sneakers",
-      price: "$200",
-      color: "black",
-      size: [35, 36, 37, 38, 39, 40],
-      image: require("../assets/images/Nike-Roshe-One-Sneakers.png"),
-    },
-    {
-      key: "10",
-      name: "Nike Shox Go-Women",
-      price: "$200",
-      color: "blue",
-      size: [36, 37, 38, 40, 42, 45],
-      image: require("../assets/images/Nike-Shox-Go-Women.png"),
-    },
-    {
-      key: "77",
-      name: "Nike Zoom Sneakers",
-      price: "$45",
-      color: "black",
-      size: [35, 36, 38, 40, 41],
-      image: require("../assets/images/Nike-Zoom-Sneakers.png"),
-    },
-    {
-      key: "77",
-      name: "Reebok Classic Sneaker",
-      price: "$405",
-      color: "green",
-      size: [36, 37, 38, 39, 40],
-      image: require("../assets/images/Reebok-Classic-Sneaker.png"),
-    },
-    {
-      key: "77",
-      name: "Reebok Club C-mid Sneaker",
-      price: "$150",
-      color: "white",
-      size: [35, 36, 42, 43, 45],
-      image: require("../assets/images/Reebok-Club-C-mid-Sneaker.png"),
-    },
-    {
-      key: "77",
-      name: "Reebok Club Sneaker",
-      price: "$401",
-      color: "white",
-      size: [35, 36, 37, 43, 45],
-      image: require("../assets/images/Reebok-Club-Sneaker.png"),
-    },
-    {
-      key: "77",
-      name: "Reebok X-Maison",
-      price: "$235",
-      color: "blue",
-      size: [35, 36, 34, 42, 45],
-      image: require("../assets/images/Reebok-X-Maison.png"),
-    },
-  ]);
-
   let [fontLoaded] = useFonts({
     Inter_700Bold: require("../assets/fonts/Inter-ExtraBold.ttf"),
     Inter_Thin: require("../assets/fonts/Inter-Thin.ttf"),
@@ -165,6 +36,7 @@ const Home = ({ navigation }) => {
   const [showModalView, setAddToModalView] = useState(false);
   const [selectedItems, setSelectedItems] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+
 
   //render all the items available
   function renderShoesAvailable(item, index) {
@@ -219,13 +91,14 @@ const Home = ({ navigation }) => {
             backgroundColor: "#3b391c",
             borderRadius: 10,
             paddingHorizontal: 4,
-            backgroundColor: selectedItems.size[index] == selectedSize ? "orange":"#3b391c",
-            borderWidth:2,
-            borderColor:"#ffbb00"
+            backgroundColor:
+              selectedItems.size[index] == selectedSize ? "orange" : "#3b391c",
+            borderWidth: 2,
+            borderColor: "#ffbb00",
           }}
           key={index}
-          onPress={()=>{
-            setSelectedSize(item)
+          onPress={() => {
+            setSelectedSize(item);
           }}
         >
           <Text style={{ fontSize: 30, color: "white" }}>{item}</Text>
@@ -253,26 +126,7 @@ const Home = ({ navigation }) => {
               marginHorizontal: 5,
             }}
           >
-            {/* <View>
-              <Text
-                style={{
-                  fontSize: 30,
-                  fontFamily: "NotoSerifDisplay_Bold",
-                  color: "#9e7911",
-                }}
-              >
-                GraberK Online
-              </Text>
-              <Text
-                style={{
-                  fontSize: 25,
-                  fontFamily: "AbrilFatface_Regular",
-                  color: "#9e7911",
-                }}
-              >
-                Food Delivery
-              </Text>
-            </View> */}
+            
 
             <TouchableOpacity
               onPress={() => {
@@ -350,13 +204,13 @@ const Home = ({ navigation }) => {
           <FlatList
             showsVerticalScrollIndicator={false}
             numColumns={2}
-            data={shoes}
+            data={shoesAvailable}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => renderShoesAvailable(item, index)}
           />
         </View>
 
-        {/*Modal View */}
+        {/*Modal View that shows the item selected to see more details */}
         {selectedItems && (
           <Modal
             animationType="slide"
@@ -437,7 +291,6 @@ const Home = ({ navigation }) => {
                       flexDirection: "row",
                       justifyContent: "space-between",
                       marginTop: 20,
-                      
                     }}
                   >
                     {renderShoeSize()}
@@ -467,15 +320,14 @@ const Home = ({ navigation }) => {
                           justifyContent: "center",
                         }}
                         onPress={() => {
-                          setSelectedItems(null);
+                          allItemsInCart.push(selectedItems);
                           setAddToModalView(false);
-                          setSelectedSize("");
                         }}
                       >
                         <Text
                           style={{
                             fontSize: 30,
-                            paddingHorizontal: 5,
+                            paddingHorizontal: 10,
                             // paddingVertical: 15,
                             marginLeft: "2%",
                           }}

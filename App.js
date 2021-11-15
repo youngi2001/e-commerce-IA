@@ -6,16 +6,13 @@ import { StyleSheet, Text, View } from 'react-native';
 
 
 
-// Add the Firebase services that you want to use
-
-
 //Screen
 import Login from './screens/Login';
 import Home from './screens/Home';
 import Account from './screens/Account';
-import itemScreen from './screens/itemScreen';
 import signup from './screens/signup';
 import Cart from './screens/Cart';
+
 
 
 export default function App() {
@@ -24,7 +21,6 @@ export default function App() {
   const MainNavigation = createStackNavigator();
 
   
-   
 
   return (
     
@@ -37,9 +33,9 @@ export default function App() {
           <MainNavigation.Screen name="Login" component={Login}/>
           <MainNavigation.Screen name="Home" component={Home} />
           <MainNavigation.Screen name="Account" component={Account} />
-          <MainNavigation.Screen name="itemScreen" component={itemScreen} />
           <MainNavigation.Screen name="signup" component={signup} />
           <MainNavigation.Screen name="Cart" component={Cart} />
+          
 
         </MainNavigation.Navigator>
 

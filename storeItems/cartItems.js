@@ -2,11 +2,6 @@ import React from "react";
 import { useState } from "react";
 
 
-const addCartItems = () =>{
-    const cartList =[
-        {selectedItems},{},{}
-    ]
-}
+const allItemsInCart = [];
 
-
-export default addCartItems;
+export default allItemsInCart;

@@ -23,16 +23,18 @@ const Account = ({ navigation }) => {
         marginTop: 40,
       }}
     >
-      <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 30 }}>Account Details</Text>
-        <Text style={{ fontSize: 30 }}></Text>
+      <View style={{ flex: 1 , alignItems:"center"}}>
+
+        <Text style={{ fontSize: 30 ,}}>Account Details</Text>
+        <Text style={{ fontSize: 30, marginTop:30 }}> User Email:</Text>
+        <Text style={{ fontSize: 19 }}> {auth.currentUser?.email} </Text>
       </View>
 
       <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
         <TouchableOpacity
           style={{
             backgroundColor: "brown",
-            height: 120,
+            height: 90,
             width: 200,
             borderRadius: 30,
           }}
