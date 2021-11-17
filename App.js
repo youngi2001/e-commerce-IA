@@ -7,7 +7,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 
 //Screen
-import Login from './screens/Login';
+import loginScreen from './screens/Login';
 import Home from './screens/Home';
 import Account from './screens/Account';
 import signup from './screens/signup';
@@ -31,7 +31,7 @@ export default function App() {
       
       <NavigationContainer>
         <MainNavigation.Navigator screenOptions={{headerShown:false}} initialRouteName="Login" >
-          <MainNavigation.Screen name="Login" component={Login}/>
+          <MainNavigation.Screen name="Login" component={loginScreen}/>
           <MainNavigation.Screen name="Home" component={Home} />
           <MainNavigation.Screen name="Account" component={Account} />
           <MainNavigation.Screen name="signup" component={signup} />
