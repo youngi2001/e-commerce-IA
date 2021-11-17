@@ -26,6 +26,7 @@ const Home = ({ navigation }) => {
   
   const [showModalView, setAddToModalView] = useState(false);
   const [selectedItems, setSelectedItems] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   //Products that are available available for sale
 const productsAvailable = [
@@ -33,7 +34,7 @@ const productsAvailable = [
     key: "1",
     name: "Samsung Earphone",
     price: "$10",
-    details:"This is a quality product",
+    color: "green",
     image: require("../assets/images2/earphones.png"),
   },
   {
@@ -57,7 +58,7 @@ const productsAvailable = [
   },
   {
     key: "5",
-    name: "Masserati Watch",
+    name: "Masserati Skeleton Watch ",
     price: "$230",
     image: require("../assets/images2/masserati.jpeg"),
   },
@@ -93,8 +94,9 @@ const productsAvailable = [
         }}
         style={{
           marginHorizontal: 15,
+          justifyContent: "space-between",
           height: 250,
-          width: "90%",
+          width: "85%",
           flexDirection:"row",
           flex: 1,
           margin: 10,
@@ -115,12 +117,10 @@ const productsAvailable = [
               marginLeft: 5,
               width: 150,
               height: 150,
-              marginLeft:"30%",
               resizeMode: "contain",
-              alignItems:"flex-end"
             }}
           />
-          <View style={{ alignContent: "center", flexDirection:"row" }}>
+          <View style={{ alignContent: "center" }}>
             <Text style={styles.flatViewText}>{item.name}</Text>
             <Text style={styles.flatViewPrice}>{item.price}</Text>
           </View>
@@ -159,7 +159,7 @@ const productsAvailable = [
               <MaterialCommunityIcons
                 name="account-circle-outline"
                 size={40}
-                color="black"
+                color="#bd9017"
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -180,7 +180,7 @@ const productsAvailable = [
             style={{ margin: 12 }}
           />
           <TextInput
-            placeholder="Eg.  Iphone X"
+            placeholder="Eg.  Tomatoes"
             style={{ fontSize: 21, width: 300 }}
           />
         </View>
@@ -190,11 +190,12 @@ const productsAvailable = [
             color: "#2b1902",
             fontWeight: "bold",
             fontSize: 20,
+            fontFamily: "Inter_Thin",
             marginLeft: 20,
             marginTop: 20,
           }}
         >
-          Categories
+          Popular Categories
         </Text>
         <View>
           <ScrollView
@@ -251,6 +252,7 @@ const productsAvailable = [
                 onPress={() => {
                   setAddToModalView(false);
                   setSelectedItems(null);
+                  setSelectedSize("");
                 }}
               ></TouchableOpacity>
 
@@ -272,16 +274,16 @@ const productsAvailable = [
                     style={{
                       fontSize: 25,
                       textAlign: "center",
-                      marginTop: "50%",
+                      marginTop: "60%",
                     }}
                   >
-                    Products comes with
+                    Shoes with
                   </Text>
                   <Text
                     style={{
                       fontSize: 25,
                       textAlign: "center",
-                      marginBottom: 50,
+                      marginBottom: 30,
                     }}
                   >
                     Free Shipping
@@ -291,15 +293,30 @@ const productsAvailable = [
                   </Text>
                 </View>
                 {/* Image of selected item */}
-                <View style={{alignItems:"center"}}>
+                <View style={{}}>
                   <Image
                     source={selectedItems.image}
-                    style={{ width: 300, height: 300, resizeMode: "contain",  }}
+                    style={{ width: 300, height: 300, resizeMode: "contain" }}
                   />
                 </View>
+
+                {/* Small details about item selected
+                <View style={{}}>
+                  <View style={{ backgroundColor: "orange", borderRadius: 12 }}>
+                    <Text style={{ marginHorizontal: 30, fontSize: 30 }}>
+                      Choose Size
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      marginTop: 20,
+                    }}
+                  >
                 
-                  
-                  {/*Shows the price for the item selected*/}
+                  </View> */}
+
                   <View
                     style={{
                       flexDirection: "row",
@@ -317,10 +334,10 @@ const productsAvailable = [
                     <View>
                       <TouchableOpacity
                         style={{
-                          backgroundColor: "#aee6d2",
+                          backgroundColor: "orange",
                           borderRadius: 10,
                           width: "100%",
-                          height: "30%",
+                          height: "40%",
                           alignContent: "center",
                           justifyContent: "center",
                         }}
@@ -355,13 +372,13 @@ const styles = StyleSheet.create({
   categories: {
     marginHorizontal: 20,
     marginTop: 15,
-    backgroundColor: "#0b543b",
+    backgroundColor: "#4d2e09",
     borderRadius: 15,
     padding: 5,
     paddingHorizontal: 10,
   },
   categoriesText: {
-    color: "white",
+    color: "orange",
     fontSize: 20,
   },
   productsItem: {
@@ -381,14 +398,14 @@ const styles = StyleSheet.create({
   },
 
   flatViewText: {
-    marginLeft: 30,
+    marginLeft: 15,
     fontSize: 19,
     alignContent: "center",
     justifyContent: "center",
   },
   flatViewPrice: {
-    fontSize: 30,
-    marginLeft: 30,
+    fontSize: 25,
+    marginLeft: 15,
     marginBottom: 5,
     color: "orange",
     alignContent: "center",

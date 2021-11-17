@@ -5,11 +5,19 @@ import { useState } from "react";
 const Checkout = () => {
   //function to take the users details
   const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
-
+  //function needed tp clear all the users information
+  const emptyUserDetails = () => {
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+    setAddress("");
+    setPhone("");
+  };
 
   const confirmPayment = () =>
   Alert.alert(
@@ -32,8 +40,10 @@ const Checkout = () => {
   const handlePayment = () => {
     if (!email) {
       alert("Email is Required");
-    } else if (!fullName) {
+    } else if (!firstName) {
       alert("First Name is required");
+    } else if (!lastName) {
+      alert("Last Name is required");
     } else if (!address) {
       alert("Password is required");
     } else if (!phone) {
@@ -45,18 +55,27 @@ const Checkout = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.checkoutText}> Checkout Page</Text>
+      <Text style={styles.checkoutText}> This is the checkout page</Text>
       <View style={{ flex: 4, justifyContent:"center" }}>
-        
-        <View>
-        <TextInput
-            style={styles.phone}
-            value={fullName}
-            placeholder={"Full Name"}
+        <View style={{ flexDirection: "row", marginBottom: 20 }}>
+          <TextInput
+            style={styles.firstName}
+            value={firstName}
+            placeholder={"First Name"}
             onChangeText={(text) => {
-              setFullName(text);
+              setFirstName(text);
             }}
           />
+          <TextInput
+            style={styles.lastName}
+            value={lastName}
+            placeholder={"Last Name"}
+            onChangeText={(text) => {
+              setLastName(text);
+            }}
+          />
+        </View>
+        <View>
           <TextInput
             style={styles.email}
             value={email}
@@ -98,7 +117,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 45,
-    backgroundColor: "#2cc992",
+    backgroundColor: "#dbc995",
     alignItems: "center",
   },
   checkoutText: {
@@ -106,7 +125,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 5,
     marginTop:30,
-    color:"green",
+    color:"#e67512",
     textAlign:"center",
     marginHorizontal: 2,
   },
@@ -159,16 +178,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   makePayment: {
-    backgroundColor: "#054d33",
+    backgroundColor: "#4d2e09",
     color: "orange",
-    marginTop: "10%",
+    marginTop: "4%",
     paddingHorizontal: 40,
     alignItems: "center",
     marginTop:54,
     marginHorizontal: 20,
     width: "86%",
     paddingVertical: 5,
-    borderColor: "white",
+    borderColor: "orange",
     borderWidth: 5,
     borderRadius: 20,
   },
