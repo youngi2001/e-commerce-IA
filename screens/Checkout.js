@@ -49,7 +49,7 @@ const Checkout = () => {
     } else if (!phone) {
       alert("Password Mismatched");
     } else { 
-        
+        confirmPayment();
     }
   };
 
@@ -83,6 +83,7 @@ const Checkout = () => {
             onChangeText={(text) => {
               setEmail(text);
             }}
+            keyboardType={"email-address"}
           />
           <TextInput
             style={styles.address}
@@ -91,18 +92,19 @@ const Checkout = () => {
             onChangeText={(text) => {
               setAddress(text);
             }}
+            
           />
           <TextInput
             style={styles.phone}
             value={phone}
-            placeholder={"Phone"}
+            placeholder={"Phone Number"}
             onChangeText={(text) => {
               setPhone(text);
             }}
-            
+            keyboardType={"numeric"}
           />
         </View>
-        <TouchableOpacity style={styles.makePayment} onPress={confirmPayment}>
+        <TouchableOpacity style={styles.makePayment} onPress={handlePayment}>
           <Text style={{ fontSize: 30, color: "white" }}>Confirm Payment</Text>
         </TouchableOpacity>
       </View>
