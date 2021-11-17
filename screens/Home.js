@@ -291,10 +291,10 @@ const productsAvailable = [
                   </Text>
                 </View>
                 {/* Image of selected item */}
-                <View style={{}}>
+                <View style={{alignItems:"center"}}>
                   <Image
                     source={selectedItems.image}
-                    style={{ width: 300, height: 300, resizeMode: "contain" }}
+                    style={{ width: 300, height: 300, resizeMode: "contain",  }}
                   />
                 </View>
                 
