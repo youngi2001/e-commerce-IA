@@ -9,6 +9,8 @@ import {
   Image,
   Modal,
 } from "react-native";
+import AppLoading from "expo-app-loading";
+import { EvilIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { ScrollView, FlatList, TextInput } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
@@ -19,73 +21,25 @@ import { BlurView } from "expo-blur";
 // Imported Icons
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import shoesAvailable from "../storeItems/data";
 import allItemsInCart from "../storeItems/cartItems";
 
 
 const Home = ({ navigation }) => {
-  
+  let [fontLoaded] = useFonts({
+    Inter_700Bold: require("../assets/fonts/Inter-ExtraBold.ttf"),
+    Inter_Thin: require("../assets/fonts/Inter-Thin.ttf"),
+    NotoSerifDisplay_Bold: require("../assets/fonts/NotoSerifDisplay-Bold.ttf"),
+    AbrilFatface_Regular: require("../assets/fonts/AbrilFatface-Regular.ttf"),
+  });
+
   const [showModalView, setAddToModalView] = useState(false);
   const [selectedItems, setSelectedItems] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
 
-  //Products that are available available for sale
-const productsAvailable = [
-  {
-    key: "1",
-    name: "Samsung Earphone",
-    price: "$10",
-    color: "green",
-    image: require("../assets/images2/earphones.png"),
-  },
-  {
-    key: "2",
-    name: "Dell XPS",
-    price: "$153.00",
-    color: "white",
-    image: require("../assets/images2/dell.jpeg"),
-  },
-  {
-    key: "3",
-    name: "Hp Pavilion",
-    price: "$1099",
-    image: require("../assets/images2/pavilion.jpeg"),
-  },
-  {
-    key: "4",
-    name: "Gucci Dive Watch",
-    price: "$21100",
-    image: require("../assets/images2/gucci.jpeg"),
-  },
-  {
-    key: "5",
-    name: "Masserati Skeleton Watch ",
-    price: "$230",
-    image: require("../assets/images2/masserati.jpeg"),
-  },
-  {
-    key: "6",
-    name: "Hp Laptop",
-    price: "$29",
-    image: require("../assets/images2/hplaptop.jpeg"),
-  },
-  {
-    key: "7",
-    name: "Samsung 4K TV",
-    price: "$190",
-    image: require("../assets/images2/samsung.jpeg"),
-  },
-  {
-    key: "8",
-    name: "Vestel 4K TV",
-    price: "$1900",
-    image: require("../assets/images2/vestel.jpeg"),
-  },
-  
-];
-
 
   //render all the items available
-  function renderProductsAvailable(item, index) {
+  function renderShoesAvailable(item, index) {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -96,8 +50,7 @@ const productsAvailable = [
           marginHorizontal: 15,
           justifyContent: "space-between",
           height: 250,
-          width: "85%",
-          flexDirection:"row",
+          width: 155,
           flex: 1,
           margin: 10,
         }}
@@ -129,14 +82,39 @@ const productsAvailable = [
     );
   }
 
-  
+  // function to display all the shoe sizes available
+  function renderShoeSize() {
+    return selectedItems.size.map((item, index) => {
+      return (
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#3b391c",
+            borderRadius: 10,
+            paddingHorizontal: 4,
+            backgroundColor:
+              selectedItems.size[index] == selectedSize ? "orange" : "#3b391c",
+            borderWidth: 2,
+            borderColor: "#ffbb00",
+          }}
+          key={index}
+          onPress={() => {
+            setSelectedSize(item);
+          }}
+        >
+          <Text style={{ fontSize: 30, color: "white" }}>{item}</Text>
+        </TouchableOpacity>
+      );
+    });
+  }
 
-  
+  if (!fontLoaded) {
+    return <AppLoading />;
+  } else {
     return (
       <View
         style={{
           flex: 1,
-          backgroundColor: "#2ce6a4",
+          backgroundColor: "#ffebd4",
           marginTop: 40,
         }}
       >
@@ -184,7 +162,7 @@ const productsAvailable = [
             style={{ fontSize: 21, width: 300 }}
           />
         </View>
-        {/* the view for the items items categories */}
+        {/* the view for the shoes categories */}
         <Text
           style={{
             color: "#2b1902",
@@ -204,30 +182,31 @@ const productsAvailable = [
             style={{}}
           >
             <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>All</Text>
+              <Text style={styles.categoriesText}>Adidas</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Laptops</Text>
+              <Text style={styles.categoriesText}>Nike</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Phones</Text>
+              <Text style={styles.categoriesText}>Rebook</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Accessories</Text>
+              <Text style={styles.categoriesText}>Jordan</Text>
             </TouchableOpacity>
           </ScrollView>
         </View>
 
-        {/* list of products staffs */}
+        {/* list of All shoes that are available in the database*/}
         <View style={{ marginTop: 15, height: "67%", borderTopLeftRadius: 10 }}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={productsAvailable}
+            numColumns={2}
+            data={shoesAvailable}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => renderProductsAvailable(item, index)}
+            renderItem={({ item, index }) => renderShoesAvailable(item, index)}
           />
         </View>
 
@@ -288,7 +267,7 @@ const productsAvailable = [
                   >
                     Free Shipping
                   </Text>
-                  <Text style={{ fontSize: 25, }}>
+                  <Text style={{ fontSize: 25, fontFamily: "Inter_700Bold" }}>
                     {selectedItems.name}
                   </Text>
                 </View>
@@ -300,7 +279,7 @@ const productsAvailable = [
                   />
                 </View>
 
-                {/* Small details about item selected
+                {/* Small details about item selected */}
                 <View style={{}}>
                   <View style={{ backgroundColor: "orange", borderRadius: 12 }}>
                     <Text style={{ marginHorizontal: 30, fontSize: 30 }}>
@@ -314,8 +293,8 @@ const productsAvailable = [
                       marginTop: 20,
                     }}
                   >
-                
-                  </View> */}
+                    {renderShoeSize()}
+                  </View>
 
                   <View
                     style={{
@@ -329,8 +308,7 @@ const productsAvailable = [
                         {selectedItems.price}
                       </Text>
                     </View>
-
-                    {/* View for the add Product to cart button and price */}
+                    {/* View for the add to cart button and price */}
                     <View>
                       <TouchableOpacity
                         style={{
@@ -359,14 +337,15 @@ const productsAvailable = [
                       </TouchableOpacity>
                     </View>
                   </View>
+                </View>
               </View>
-
             </BlurView>
           </Modal>
         )}
       </View>
     );
-  };
+  }
+};
 
 const styles = StyleSheet.create({
   categories: {
@@ -380,13 +359,6 @@ const styles = StyleSheet.create({
   categoriesText: {
     color: "orange",
     fontSize: 20,
-  },
-  productsItem: {
-    marginVertical: 40,
-    backgroundColor: "yellow",
-    fontSize: 25,
-    flex: 1,
-    borderRadius: 15,
   },
   searchBar: {
     height: 60,
