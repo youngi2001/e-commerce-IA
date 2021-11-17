@@ -1,144 +1,194 @@
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, } from 'react-native'
+import React from "react";
+import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import * as firebase from "firebase";
+import "firebase/firestore";
+import { auth } from "../firebase";
+import { useState, useEffect } from "react";
 
 
+const signup = ({ navigation }) => {
+    //function to take the users details
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-const signup = () => {
+  //function needed tp clear all the users information
+  const emptyUserDetails =()=>{
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+    setPassword("");
+    setConfirmPassword("");
+  };
 
-    const navigation = useNavigation()
+  //function to ensure the form is not empty
+  const handleForm = () => {
+    if (!email) {
+      alert("Email is Required");
+    } else if (!firstName) {
+      alert("First Name is required");
+    } else if (!lastName) {
+      alert("Last Name is required");
+    } else if (!password) {
+      alert("Password is required");
+    } else if (confirmPassword !== password) {
+      alert("Password Mismatched");
+    } else {
+      emailRegistration();
+      navigation.replace("Login");
+      emptyUserDetails();
+    }
+  };
 
-    return (
-       <KeyboardAvoidingView
-       style={styles.container}
-    // behavior="padding"
-       >
+  //function for email registration
+  const emailRegistration = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log("Registered with", user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
 
-            <View style={styles.loginHeader}>
-                <Text style={styles.loginText}>
-                    Sign Up for an Account
-                </Text>
-            </View>
+  //function for creating a table in firebase and storing user Data such as name, and email
 
-            <View style={styles.inputContainer}>
+  return (
+    <View style={styles.container}>
+      <View style={{ flex: 2, justifyContent: "center" }}>
+        <Text style={styles.signupText}> Welcome to the Signup page</Text>
+        <Text style={{ fontSize: 18, marginTop: 50 }}>
+          Please fill this form to create an account!
+        </Text>
+      </View>
 
-            <TextInput placeholder='Username'
-                // value={email}
-                // onChangeText ={text => setEmail(text)}
-                style={styles.input}/>
+      {/* collect user details */}
+      {/* <KeyboardAvoidingView style={{ flex: 4 }} behavior="padding" keyboardVerticalOffset={0}> */}
+      <View style={{ flex: 4 }}>
+        <View style={{ flexDirection: "row", marginBottom: 20 }}>
+          <TextInput
+            style={styles.firstName}
+            value={firstName}
+            placeholder={"First Name"}
+            onChangeText={(text) => {
+              setFirstName(text);
+            }}
+          />
+          <TextInput
+            style={styles.lastName}
+            value={lastName}
+            placeholder={"Last Name"}
+            onChangeText={(text) => {
+              setLastName(text);
+            }}
+          />
+        </View>
+        <View>
+          <TextInput
+            style={styles.email}
+            value={email}
+            placeholder={"Email"}
+            onChangeText={(text) => {
+              setEmail(text);
+            }}
+          />
+          <TextInput
+            style={styles.password}
+            value={password}
+            placeholder={"Password"}
+            onChangeText={(text) => {
+              setPassword(text);
+            }}
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.password}
+            value={confirmPassword}
+            placeholder={"Confirm Password"}
+            onChangeText={(text) => {
+              setConfirmPassword(text);
+            }}
+            secureTextEntry
+          />
+        </View>
+        <TouchableOpacity style={styles.signUp} onPress={handleForm}>
+          <Text style={{ fontSize: 30, color: "white" }}>Signup</Text>
+        </TouchableOpacity>
+      </View>
+      {/* </KeyboardAvoidingView> */}
+      <View style={{}}></View>
+    </View>
+  );
+};
 
-                <TextInput placeholder='Email'
-                // value={email}
-                // onChangeText ={text => setEmail(text)}
-                style={styles.input}/>
-
-                <TextInput placeholder='Password'
-                // value={password}
-                // onChangeText ={text => setPassword(text)}
-                style={styles.input}
-                secureTextEntry/>
-
-                <TextInput placeholder='Confirm Password'
-                // value={password}
-                // onChangeText ={text => setPassword(text)}
-                style={styles.input}
-                secureTextEntry/>
-            </View>
-
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={()=> {navigation.navigate("Home")}}
-                style={styles.button}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
-                </TouchableOpacity>
-
-                <View style={styles.signupAlt}>
-                    <TouchableOpacity onPress={()=> {navigation.navigate("Log in")}}>
-                        <Text style={styles.signupAltText}>Already have an Account?</Text>
-                    </TouchableOpacity>
-                </View>
-
-                
-            </View>
-       </KeyboardAvoidingView>
-    )
-}
-
-export default signup
+export default signup;
 
 const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "#1a535c"
-    },
-
-    inputContainer: {
-        width: "80%",
-        // height: "10%",
-    },
-
-    input: {
-        backgroundColor: "#fff",
-        paddingHorizontal: 15,
-        paddingVertical: 13,
-        marginBottom: 10,
-        borderRadius: 10,
-    },
-
-    buttonContainer: {
-        width: '60%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    button: {
-        backgroundColor: '#4ECDC4',
-        width: "100%",
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 5,
-        borderRadius: 10,
-    },
-
-    buttonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-    },
-    buttonOutline: {
-        backgroundColor: "#fff",
-        // borderColor: "#4ECDC4",
-        // borderWidth: 2,
-    },
-    buttonOutlineText: {
-        color: "#1a535c",
-        fontWeight: 'bold',
-    },
-
-    loginHeader: {
-        width: '100%',
-        height: '5%',
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: 5,
-    },
-    loginText: {
-        color: "#4d9c4b",
-        // fontWeight: "bold",
-        fontSize: 16,
-        
-    },
-
-    signupAlt:{
-        marginTop: 10,
-        
-    },
-    signupAltText:{
-        color: "#4ECDC4"
-    },
-})
-
-
+  container: {
+    flex: 1,
+    marginTop: 45,
+    backgroundColor: "#dbc995",
+    alignItems: "center",
+  },
+  signupText: {
+    fontSize: 28,
+    marginBottom: 15,
+    borderRadius: 5,
+    marginHorizontal: 2,
+    fontWeight: "bold",
+  },
+  firstName: {
+    height: 50,
+    width: "47%",
+    padding: 5,
+    fontSize: 20,
+    borderRadius: 5,
+    marginLeft: "1%",
+    backgroundColor: "white",
+  },
+  lastName: {
+    height: 50,
+    width: "47%",
+    padding: 5,
+    fontSize: 20,
+    borderRadius: 5,
+    marginLeft: "1%",
+    backgroundColor: "white",
+  },
+  email: {
+    height: 50,
+    width: "96%",
+    borderRadius: 5,
+    padding: 5,
+    fontSize: 20,
+    backgroundColor: "white",
+    marginLeft: "1%",
+    marginBottom: 20,
+  },
+  password: {
+    height: 50,
+    width: "96%",
+    borderRadius: 5,
+    padding: 5,
+    fontSize: 20,
+    marginBottom: 20,
+    marginLeft: "1%",
+    backgroundColor: "white",
+  },
+  signUp: {
+    backgroundColor: "#4d2e09",
+    color: "orange",
+    marginTop: "4%",
+    paddingHorizontal: 40,
+    alignItems: "center",
+    marginHorizontal: 70,
+    width: "56%",
+    paddingVertical: 5,
+    borderColor: "orange",
+    borderWidth: 5,
+    borderRadius: 20,
+  },
+});

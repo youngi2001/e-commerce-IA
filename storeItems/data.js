@@ -1,5 +1,5 @@
 
-//Products that are available available for sale
+//Shoes available for sale
 const shoesAvailable = [
     {
       key: "1",
