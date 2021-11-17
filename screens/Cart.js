@@ -103,7 +103,7 @@ const Cart = ({ navigation }) => {
           borderRadius: 10,
         }}
         onPress={() => {
-          navigation.navigate("Home");
+          navigation.navigate("Checkout");
         }}
       >
         <Text
