@@ -2,11 +2,11 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { FlatList,} from "react-native-gesture-handler";
 import allItemsInCart from "../storeItems/cartItems";
 
 const Cart = ({ navigation }) => {
+
   function renderCartItems(item, index) {
     return (
       <View
@@ -14,7 +14,7 @@ const Cart = ({ navigation }) => {
           flex: 1,
           width: "95%",
           height: 150,
-          backgroundColor: "#ffbb00",
+          backgroundColor: "#84baa7",
           marginBottom: 15,
           marginLeft: 15,
           borderRadius: 22,
@@ -54,7 +54,7 @@ const Cart = ({ navigation }) => {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          backgroundColor: "#ffbb00",
+          backgroundColor: "green",
           padding: 5,
         }}
       >
@@ -80,8 +80,8 @@ const Cart = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ fontSize: 30, marginTop: 15 }}>
-          List ready for Payment
+        <Text style={{ fontSize: 20, marginTop: 15 }}>
+          Products ready for Payment
         </Text>
       </View>
 
@@ -127,7 +127,7 @@ export default Cart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#dbc985",
+    backgroundColor: "#80e8c4",
     marginTop: 40,
     //alignItems:"center"
   },
