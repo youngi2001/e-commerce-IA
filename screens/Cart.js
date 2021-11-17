@@ -73,6 +73,7 @@ const Cart = ({ navigation }) => {
           onPress={() => {
             navigation.replace("Home");
             allItemsInCart.splice(0, allItemsInCart.length);
+            alert("All Items in Cart Deleted")
           }}
         >
           <AntDesign name="delete" size={34} color="black" />
