@@ -9,8 +9,6 @@ import {
   Image,
   Modal,
 } from "react-native";
-import AppLoading from "expo-app-loading";
-import { EvilIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { ScrollView, FlatList, TextInput } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
@@ -21,25 +19,79 @@ import { BlurView } from "expo-blur";
 // Imported Icons
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import shoesAvailable from "../storeItems/data";
 import allItemsInCart from "../storeItems/cartItems";
 
 
 const Home = ({ navigation }) => {
-  let [fontLoaded] = useFonts({
-    Inter_700Bold: require("../assets/fonts/Inter-ExtraBold.ttf"),
-    Inter_Thin: require("../assets/fonts/Inter-Thin.ttf"),
-    NotoSerifDisplay_Bold: require("../assets/fonts/NotoSerifDisplay-Bold.ttf"),
-    AbrilFatface_Regular: require("../assets/fonts/AbrilFatface-Regular.ttf"),
-  });
-
+  
   const [showModalView, setAddToModalView] = useState(false);
   const [selectedItems, setSelectedItems] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
 
+  //Products that are available available for sale
+const productsAvailable = [
+  {
+    key: "1",
+    name: "Samsung Earphone",
+    price: "$10",
+    color: "green",
+    image: require("../assets/images/earphones.png"),
+  },
+  {
+    key: "2",
+    name: "Dell XPS",
+    price: "$153.00",
+    color: "white",
+    image: require("../assets/images/dell.jpeg"),
+  },
+  {
+    key: "3",
+    name: "Hp Pavilion",
+    price: "$1099",
+    image: require("../assets/images/pavilion.jpeg"),
+  },
+  {
+    key: "4",
+    name: "Gucci Dive Watch",
+    price: "$21100",
+    image: require("../assets/images/Converse-Chuck-Taylor-Hi-Sneakers.png"),
+  },
+  {
+    key: "5",
+    name: "Fila Ray Tracer Sneaker",
+    price: "$200",
+    image: require("../assets/images/Fila-Ray-Tracer-Sneaker.png"),
+  },
+  {
+    key: "6",
+    name: "Masserati Skeleton Watch ",
+    price: "$230",
+    image: require("../assets/images/Nike-Air-Zoom-Sneaker.png"),
+  },
+  {
+    key: "7",
+    name: "Hp Laptop",
+    price: "$29",
+    image: require("../assets/images/nike-SB-Dunk-Low-sneakers.png"),
+  },
+  {
+    key: "89",
+    name: "Samsung 4K TV",
+    price: "$190",
+    image: require("../assets/images/Nike-Air-Jordan-X.png"),
+  },
+  {
+    key: "89",
+    name: "Vestel 4K TV",
+    price: "$1900",
+    image: require("../assets/images/Nike-Air-Jordan-X.png"),
+  },
+  
+];
+
 
   //render all the items available
-  function renderShoesAvailable(item, index) {
+  function renderProductsAvailable(item, index) {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -50,7 +102,8 @@ const Home = ({ navigation }) => {
           marginHorizontal: 15,
           justifyContent: "space-between",
           height: 250,
-          width: 155,
+          width: "85%",
+          flexDirection:"row",
           flex: 1,
           margin: 10,
         }}
@@ -82,39 +135,14 @@ const Home = ({ navigation }) => {
     );
   }
 
-  // function to display all the shoe sizes available
-  function renderShoeSize() {
-    return selectedItems.size.map((item, index) => {
-      return (
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#3b391c",
-            borderRadius: 10,
-            paddingHorizontal: 4,
-            backgroundColor:
-              selectedItems.size[index] == selectedSize ? "orange" : "#3b391c",
-            borderWidth: 2,
-            borderColor: "#ffbb00",
-          }}
-          key={index}
-          onPress={() => {
-            setSelectedSize(item);
-          }}
-        >
-          <Text style={{ fontSize: 30, color: "white" }}>{item}</Text>
-        </TouchableOpacity>
-      );
-    });
-  }
+  
 
-  if (!fontLoaded) {
-    return <AppLoading />;
-  } else {
+  
     return (
       <View
         style={{
           flex: 1,
-          backgroundColor: "#ffebd4",
+          backgroundColor: "#2ce6a4",
           marginTop: 40,
         }}
       >
@@ -162,7 +190,7 @@ const Home = ({ navigation }) => {
             style={{ fontSize: 21, width: 300 }}
           />
         </View>
-        {/* the view for the food items categories */}
+        {/* the view for the items items categories */}
         <Text
           style={{
             color: "#2b1902",
@@ -182,31 +210,30 @@ const Home = ({ navigation }) => {
             style={{}}
           >
             <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Adidas</Text>
+              <Text style={styles.categoriesText}>All</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Nike</Text>
+              <Text style={styles.categoriesText}>Laptops</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Rebook</Text>
+              <Text style={styles.categoriesText}>Phones</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.categories}>
-              <Text style={styles.categoriesText}>Jordan</Text>
+              <Text style={styles.categoriesText}>Accessories</Text>
             </TouchableOpacity>
           </ScrollView>
         </View>
 
-        {/* list of food staffs */}
+        {/* list of products staffs */}
         <View style={{ marginTop: 15, height: "67%", borderTopLeftRadius: 10 }}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            numColumns={2}
-            data={shoesAvailable}
+            data={productsAvailable}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => renderShoesAvailable(item, index)}
+            renderItem={({ item, index }) => renderProductsAvailable(item, index)}
           />
         </View>
 
@@ -267,7 +294,7 @@ const Home = ({ navigation }) => {
                   >
                     Free Shipping
                   </Text>
-                  <Text style={{ fontSize: 25, fontFamily: "Inter_700Bold" }}>
+                  <Text style={{ fontSize: 25, }}>
                     {selectedItems.name}
                   </Text>
                 </View>
@@ -279,7 +306,7 @@ const Home = ({ navigation }) => {
                   />
                 </View>
 
-                {/* Small details about item selected */}
+                {/* Small details about item selected
                 <View style={{}}>
                   <View style={{ backgroundColor: "orange", borderRadius: 12 }}>
                     <Text style={{ marginHorizontal: 30, fontSize: 30 }}>
@@ -293,8 +320,8 @@ const Home = ({ navigation }) => {
                       marginTop: 20,
                     }}
                   >
-                    {renderShoeSize()}
-                  </View>
+                
+                  </View> */}
 
                   <View
                     style={{
@@ -308,7 +335,8 @@ const Home = ({ navigation }) => {
                         {selectedItems.price}
                       </Text>
                     </View>
-                    {/* View for the add to cart button and price */}
+
+                    {/* View for the add Product to cart button and price */}
                     <View>
                       <TouchableOpacity
                         style={{
@@ -337,15 +365,14 @@ const Home = ({ navigation }) => {
                       </TouchableOpacity>
                     </View>
                   </View>
-                </View>
               </View>
+
             </BlurView>
           </Modal>
         )}
       </View>
     );
-  }
-};
+  };
 
 const styles = StyleSheet.create({
   categories: {
@@ -360,7 +387,7 @@ const styles = StyleSheet.create({
     color: "orange",
     fontSize: 20,
   },
-  foodItem: {
+  productsItem: {
     marginVertical: 40,
     backgroundColor: "yellow",
     fontSize: 25,
