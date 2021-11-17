@@ -12,6 +12,7 @@ import Home from './screens/Home';
 import Account from './screens/Account';
 import signup from './screens/signup';
 import Cart from './screens/Cart';
+import Checkout from './screens/Checkout';
 
 
 
@@ -35,8 +36,7 @@ export default function App() {
           <MainNavigation.Screen name="Account" component={Account} />
           <MainNavigation.Screen name="signup" component={signup} />
           <MainNavigation.Screen name="Cart" component={Cart} />
-          
-
+          <MainNavigation.Screen name="Checkout" component={Checkout}/>
         </MainNavigation.Navigator>
 
       </NavigationContainer>
