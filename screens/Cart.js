@@ -41,7 +41,7 @@ const Cart = ({ navigation }) => {
             marginLeft: 5,
             width: 150,
             height: 150,
-            marginRight:15,
+            marginRight: 15,
             resizeMode: "contain",
           }}
         />
@@ -79,7 +79,9 @@ const Cart = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ fontSize: 30, marginTop:15 }}>List ready for Payment</Text>
+        <Text style={{ fontSize: 30, marginTop: 15 }}>
+          List ready for Payment
+        </Text>
       </View>
 
       {/* list items added to cart */}
@@ -97,11 +99,12 @@ const Cart = ({ navigation }) => {
           alignItems: "center",
           backgroundColor: "green",
           marginHorizontal: "15%",
-          marginTop:25,
+          marginTop: 25,
           borderRadius: 10,
-          
         }}
-        
+        onPress={() => {
+          navigation.navigate("Home");
+        }}
       >
         <Text
           style={{
